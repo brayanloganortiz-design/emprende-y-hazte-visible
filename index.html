@@ -1183,7 +1183,7 @@ function showImpact(k){
   [...tabs.children].forEach((b, i) => b.classList.toggle('on', ORDEN[i] === k));
   chart.style.setProperty('--c', color); statsEl.style.setProperty('--c', color);
   const datos = contar(k);
-  chartInner.classList.toggle('many', datos.length > 5);
+  chartInner.classList.toggle('many', datos.length > 5 || datos.some(([l]) => String(l).length > 3)); // etiquetas largas: se inclinan para no superponerse
   chartInner.innerHTML = datos.map(([label, v]) => `<div class="group" style="--c:${color}">${bar3d(v)}<label>${label}</label></div>`).join('');
   requestAnimationFrame(() => setTimeout(() => {
     chartInner.querySelectorAll('.bar').forEach(b => b.style.height = Math.max(6, +b.dataset.v / R * 220) + 'px');
